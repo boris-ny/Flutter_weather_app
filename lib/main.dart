@@ -16,6 +16,7 @@ class MainApp extends StatelessWidget {
           backgroundColor: Colors.black12,
           body: Center(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
                   height: 30,
@@ -40,35 +41,45 @@ class MainApp extends StatelessWidget {
                 SizedBox(
                   height: 10,
                 ),
-                TextField(
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(50))),
-                    hintText: "Enter Username",
-                    hintStyle: TextStyle(
-                      color: Colors.black,
+                SizedBox(
+                  width: 350,
+                  height: 50,
+                  child: TextField(
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(50))),
+                      hintText: "Please Enter Username",
+                      hintStyle: TextStyle(
+                        color: Colors.black,
+                      ),
                     ),
                   ),
                 ),
                 SizedBox(
                   height: 30,
                 ),
-                Text("Password",
-                    style: TextStyle(color: Colors.white, fontSize: 20.0)),
+                Text(
+                  "Password",
+                  style: TextStyle(color: Colors.white, fontSize: 20.0),
+                ),
                 SizedBox(
                   height: 10,
                 ),
-                TextField(
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(50))),
-                    hintText: "Enter Password",
-                    hintStyle: TextStyle(
-                      color: Colors.black,
+                SizedBox(
+                  width: 350,
+                  height: 50,
+                  child: TextField(
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(50))),
+                      hintText: "Please Enter Password",
+                      hintStyle: TextStyle(
+                        color: Colors.black,
+                      ),
                     ),
                   ),
                 ),
