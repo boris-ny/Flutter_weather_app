@@ -1,24 +1,26 @@
 import 'package:flutter/material.dart';
-import 'WeatherScreen.dart';
+
 import 'CitySearchScreen.dart';
+import 'WeatherScreen.dart';
 
 void main() {
-  runApp(WeatherApp());
+  runApp(const DashBoard());
 }
 
-class WeatherApp extends StatefulWidget {
+class DashBoard extends StatefulWidget {
+  const DashBoard({super.key});
+
   @override
-  _WeatherAppState createState() => _WeatherAppState();
+  State<DashBoard> createState() => _DashBoardState();
 }
 
-class _WeatherAppState extends State<WeatherApp> {
+class _DashBoardState extends State<DashBoard> {
   int _selectedIndex = 0;
   bool _isDarkMode = false;
 
-  static List<Widget> _widgetOptions = <Widget>[
-    WeatherScreen(),
+  static final List<Widget> _widgetOptions = <Widget>[
+    const WeatherScreen(),
     CitySearchScreen(),
-
   ];
 
   void _onItemTapped(int index) {
@@ -41,7 +43,7 @@ class _WeatherAppState extends State<WeatherApp> {
       theme: _isDarkMode ? ThemeData.dark() : ThemeData.light(),
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Weather App'),
+          title: const Text('Weather App'),
           actions: [
             IconButton(
               icon: Icon(_isDarkMode ? Icons.wb_sunny : Icons.nightlight_round),
@@ -53,7 +55,7 @@ class _WeatherAppState extends State<WeatherApp> {
           child: _widgetOptions.elementAt(_selectedIndex),
         ),
         bottomNavigationBar: BottomNavigationBar(
-          items: <BottomNavigationBarItem>[
+          items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
               label: 'Home',
