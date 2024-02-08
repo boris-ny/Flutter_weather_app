@@ -8,12 +8,12 @@ class WeatherScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return const SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           // Display City Name, Temperature, and Weather Condition
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(vertical: 20),
             child: Column(
               children: [
@@ -51,28 +51,28 @@ class WeatherScreen extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 60),
+          SizedBox(height: 60),
 
-          const Text(
+          Text(
             'Hours of the Day:',
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(height: 60),
+          SizedBox(height: 60),
           HourlyForecast(),
 
-          const SizedBox(height: 60),
+          SizedBox(height: 60),
 
-          const Text(
+          Text(
             'Forecast for the next few days:',
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(height: 10),
+          SizedBox(height: 10),
 
           ForecastList(),
         ],

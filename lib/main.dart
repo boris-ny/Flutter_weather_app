@@ -20,7 +20,7 @@ class _DashBoardState extends State<DashBoard> {
 
   static final List<Widget> _widgetOptions = <Widget>[
     const WeatherScreen(),
-    CitySearchScreen(),
+    const CitySearchScreen(),
   ];
 
   void _onItemTapped(int index) {
