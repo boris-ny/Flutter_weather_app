@@ -5,7 +5,7 @@ class HourlyForecast extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: 10), // Add space above the hourly forecast
+        SizedBox(height: 10),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -20,13 +20,13 @@ class HourlyForecast extends StatelessWidget {
                 Column(
                   children: [
                     Text('9 AM'),
-                    WeatherIcon(condition: 'Sunny'), // Replace with actual weather condition data
+                    WeatherIcon(condition: 'Sunny'),
                     SizedBox(height: 10),
                     Text('10 AM'),
-                    WeatherIcon(condition: 'Cloudy'), // Replace with actual weather condition data
+                    WeatherIcon(condition: 'Cloudy'),
                     SizedBox(height: 10),
                     Text('11 AM'),
-                    WeatherIcon(condition: 'Rainy'), // Replace with actual weather condition data
+                    WeatherIcon(condition: 'Rainy'),
                   ],
                 ),
               ],
@@ -42,13 +42,13 @@ class HourlyForecast extends StatelessWidget {
                 Column(
                   children: [
                     Text('12 PM'),
-                    WeatherIcon(condition: 'Sunny'), // Replace with actual weather condition data
+                    WeatherIcon(condition: 'Sunny'),
                     SizedBox(height: 10),
                     Text('1 PM'),
-                    WeatherIcon(condition: 'Partly Cloudy'), // Replace with actual weather condition data
+                    WeatherIcon(condition: 'Partly Cloudy'),
                     SizedBox(height: 10),
                     Text('2 PM'),
-                    WeatherIcon(condition: 'Cloudy'), // Replace with actual weather condition data
+                    WeatherIcon(condition: 'Cloudy'),
                   ],
                 ),
               ],
@@ -64,20 +64,20 @@ class HourlyForecast extends StatelessWidget {
                 Column(
                   children: [
                     Text('3 PM'),
-                    WeatherIcon(condition: 'Cloudy'), // Replace with actual weather condition data
+                    WeatherIcon(condition: 'Cloudy'),
                     SizedBox(height: 10),
                     Text('4 PM'),
-                    WeatherIcon(condition: 'Rainy'), // Replace with actual weather condition data
+                    WeatherIcon(condition: 'Rainy'),
                     SizedBox(height: 10),
                     Text('5 PM'),
-                    WeatherIcon(condition: 'Sunny'), // Replace with actual weather condition data
+                    WeatherIcon(condition: 'Sunny'),
                   ],
                 ),
               ],
             ),
           ],
         ),
-        SizedBox(height: 20), // Add space between evening and forecast
+        SizedBox(height: 20), //
       ],
     );
   }

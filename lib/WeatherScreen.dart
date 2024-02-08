@@ -37,27 +37,27 @@ class WeatherBody extends StatelessWidget {
                 children: [
                   SizedBox(height: 50,),
                   Text(
-                    '25°C', // Replace with actual temperature data
+                    '25°C',
                     style: TextStyle(
                       fontSize: 20,
                     ),
                   ),
                   SizedBox(width: 10),
                   Text(
-                    'Sunny', // Replace with actual weather condition data
+                    'Sunny',
                     style: TextStyle(
                       fontSize: 18,
                     ),
                   ),
-                  // Add weather icon here
+
                 ],
               ),
             ],
           ),
         ),
-        SizedBox(height: 60), // Add space between city info and forecast
+        SizedBox(height: 60),
 
-        // Display Hours of the Day
+
         Text(
           'Hours of the Day:',
           style: TextStyle(
@@ -65,12 +65,12 @@ class WeatherBody extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        SizedBox(height: 60), // Add space above hours of the day
-        HourlyForecast(), // Add HourlyForecast widget to display hours of the day
+        SizedBox(height: 60),
+        HourlyForecast(),
 
-        SizedBox(height: 60), // Add space between hours of the day and forecast
+        SizedBox(height: 60),
 
-        // Display Forecast for Multiple Days
+
         Text(
           'Forecast for the next few days:',
           style: TextStyle(
@@ -78,9 +78,9 @@ class WeatherBody extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        SizedBox(height: 10), // Add space above forecast
-        // Add widgets to display forecast for multiple days
-        ForecastList(), // Add ForecastList widget to display forecast
+        SizedBox(height: 10),
+
+        ForecastList(),
       ],
     );
   }

@@ -72,7 +72,7 @@ class CityWeatherItem extends StatelessWidget {
       child: ClipPath(
         clipper: CityClipper(),
         child: Container(
-          color: Colors.purple, // Set the background color to purple
+          color: Colors.purple,
           padding: EdgeInsets.all(16.0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -100,12 +100,12 @@ class CityWeatherItem extends StatelessWidget {
                 padding: EdgeInsets.all(24.0),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.purple, // Use the existing purple color
+                  color: Colors.purple,
                 ),
                 child: Icon(
                   _getWeatherIcon(weatherCondition),
                   color: _getWeatherIconColor(weatherCondition),
-                  size: 64.0, // Set the size to a very big value
+                  size: 64.0,
                 ),
               ),
             ],
@@ -141,15 +141,14 @@ class CityClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     final path = Path();
-    final double curveHeight = size.height * 0.5; // Adjust the curve height as needed
-    final double curveWidth = size.width * 0.3; // Adjust the width of the curve as needed
-    final double tallerSideWidth = size.width * 0.7; // Adjust the width of the taller side as needed
+    final double curveHeight = size.height * 0.5;
+    final double curveWidth = size.width * 0.3;
+    final double tallerSideWidth = size.width * 0.7;
 
     path.lineTo(0, size.height);
     path.lineTo(tallerSideWidth, size.height);
     path.lineTo(tallerSideWidth, curveHeight);
 
-    // Define the control point for the quadratic bezier curve
     final controlPointX = size.width / 2;
     final controlPointY = curveHeight - curveWidth;
 

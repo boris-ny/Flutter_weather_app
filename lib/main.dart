@@ -18,7 +18,7 @@ class _WeatherAppState extends State<WeatherApp> {
   static List<Widget> _widgetOptions = <Widget>[
     WeatherScreen(),
     CitySearchScreen(),
-    // Add more screens here if needed
+
   ];
 
   void _onItemTapped(int index) {
@@ -62,7 +62,6 @@ class _WeatherAppState extends State<WeatherApp> {
               icon: Icon(Icons.search),
               label: 'Search',
             ),
-            // Add more BottomNavigationBarItems here if needed
           ],
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
