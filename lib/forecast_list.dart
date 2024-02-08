@@ -1,11 +1,24 @@
 import 'package:flutter/material.dart';
 
 class ForecastList extends StatelessWidget {
+  const ForecastList({super.key});
   @override
   Widget build(BuildContext context) {
     // Dummy forecast data
-    List<String> days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-    List<String> conditions = ['Sunny', 'Rainy', 'Cloudy', 'Sunny', 'Partly Cloudy'];
+    List<String> days = [
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday'
+    ];
+    List<String> conditions = [
+      'Sunny',
+      'Rainy',
+      'Cloudy',
+      'Sunny',
+      'Partly Cloudy'
+    ];
     List<int> temperatures = [25, 20, 22, 26, 23]; // Celsius
 
     return SingleChildScrollView(
@@ -28,7 +41,8 @@ class ForecastItem extends StatelessWidget {
   final String condition;
   final int temperature;
 
-  ForecastItem({
+  const ForecastItem({
+    super.key,
     required this.day,
     required this.condition,
     required this.temperature,
@@ -52,8 +66,8 @@ class ForecastItem extends StatelessWidget {
     }
 
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10),
-      padding: EdgeInsets.all(10),
+      margin: const EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey),
         borderRadius: BorderRadius.circular(10),
@@ -62,26 +76,28 @@ class ForecastItem extends StatelessWidget {
         children: [
           Text(
             day,
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(
                 weatherIcon,
-                color: condition.toLowerCase() == 'sunny' ? Colors.orange : null,
+                color:
+                    condition.toLowerCase() == 'sunny' ? Colors.orange : null,
               ),
-              SizedBox(width: 5),
+              const SizedBox(width: 5),
               Text(
                 condition,
                 style: TextStyle(
-                  color: condition.toLowerCase() == 'sunny' ? Colors.orange : null,
+                  color:
+                      condition.toLowerCase() == 'sunny' ? Colors.orange : null,
                 ),
               ),
             ],
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Text('$temperature°C'),
         ],
       ),

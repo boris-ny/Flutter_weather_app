@@ -1,21 +1,28 @@
 import 'package:flutter/material.dart';
 
 class CitySearchScreen extends StatefulWidget {
+  const CitySearchScreen({super.key});
   @override
   _CitySearchScreenState createState() => _CitySearchScreenState();
 }
 
 class _CitySearchScreenState extends State<CitySearchScreen> {
-  TextEditingController _searchController = TextEditingController();
-  List<CityWeatherItem> _cities = [
-    CityWeatherItem(cityName: 'New York', weatherCondition: 'Sunny', temperature: 22),
-    CityWeatherItem(cityName: 'London', weatherCondition: 'Cloudy', temperature: 18),
-    CityWeatherItem(cityName: 'Paris', weatherCondition: 'Rainy', temperature: 15),
-    CityWeatherItem(cityName: 'Tokyo', weatherCondition: 'Sunny', temperature: 25),
-    CityWeatherItem(cityName: 'Kampala', weatherCondition: 'Sunny', temperature: 25),
-    CityWeatherItem(cityName: 'Bujumbura', weatherCondition: 'Sunny', temperature: 35),
-    CityWeatherItem(cityName: 'Arizona', weatherCondition: 'Sunny', temperature: 37),
-
+  final TextEditingController _searchController = TextEditingController();
+  final List<CityWeatherItem> _cities = [
+    const CityWeatherItem(
+        cityName: 'New York', weatherCondition: 'Sunny', temperature: 22),
+    const CityWeatherItem(
+        cityName: 'London', weatherCondition: 'Cloudy', temperature: 18),
+    const CityWeatherItem(
+        cityName: 'Paris', weatherCondition: 'Rainy', temperature: 15),
+    const CityWeatherItem(
+        cityName: 'Tokyo', weatherCondition: 'Sunny', temperature: 25),
+    const CityWeatherItem(
+        cityName: 'Kampala', weatherCondition: 'Sunny', temperature: 25),
+    const CityWeatherItem(
+        cityName: 'Bujumbura', weatherCondition: 'Sunny', temperature: 35),
+    const CityWeatherItem(
+        cityName: 'Arizona', weatherCondition: 'Sunny', temperature: 37),
   ];
 
   List<CityWeatherItem> _filteredCities = [];
@@ -33,7 +40,7 @@ class _CitySearchScreenState extends State<CitySearchScreen> {
         title: TextField(
           controller: _searchController,
           onChanged: _filterCities,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             hintText: 'Search cities...',
           ),
         ),
@@ -49,7 +56,10 @@ class _CitySearchScreenState extends State<CitySearchScreen> {
 
   void _filterCities(String searchText) {
     setState(() {
-      _filteredCities = _cities.where((city) => city.cityName.toLowerCase().contains(searchText.toLowerCase())).toList();
+      _filteredCities = _cities
+          .where((city) =>
+              city.cityName.toLowerCase().contains(searchText.toLowerCase()))
+          .toList();
     });
   }
 }
@@ -59,7 +69,8 @@ class CityWeatherItem extends StatelessWidget {
   final String weatherCondition;
   final int temperature;
 
-  CityWeatherItem({
+  const CityWeatherItem({
+    super.key,
     required this.cityName,
     required this.weatherCondition,
     required this.temperature,
@@ -68,12 +79,12 @@ class CityWeatherItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
       child: ClipPath(
         clipper: CityClipper(),
         child: Container(
           color: Colors.purple,
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -84,21 +95,22 @@ class CityWeatherItem extends StatelessWidget {
                   children: [
                     Text(
                       '$temperature°C',
-                      style: TextStyle(fontSize: 56.0, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          fontSize: 56.0, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 8.0),
+                    const SizedBox(height: 8.0),
                     Text(
                       cityName,
-                      style: TextStyle(fontSize: 18.0),
+                      style: const TextStyle(fontSize: 18.0),
                     ),
                   ],
                 ),
               ),
-              SizedBox(width: 16.0),
+              const SizedBox(width: 16.0),
               // Icon
               Container(
-                padding: EdgeInsets.all(24.0),
-                decoration: BoxDecoration(
+                padding: const EdgeInsets.all(24.0),
+                decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   color: Colors.purple,
                 ),
@@ -152,7 +164,8 @@ class CityClipper extends CustomClipper<Path> {
     final controlPointX = size.width / 2;
     final controlPointY = curveHeight - curveWidth;
 
-    path.quadraticBezierTo(controlPointX, controlPointY, size.width - tallerSideWidth, curveHeight);
+    path.quadraticBezierTo(controlPointX, controlPointY,
+        size.width - tallerSideWidth, curveHeight);
 
     path.lineTo(size.width - tallerSideWidth, size.height);
     path.lineTo(size.width, size.height);

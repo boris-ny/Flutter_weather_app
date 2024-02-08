@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class HourlyForecast extends StatelessWidget {
+  const HourlyForecast({super.key});
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       children: [
         SizedBox(height: 10),
         Row(
@@ -86,7 +87,7 @@ class HourlyForecast extends StatelessWidget {
 class WeatherIcon extends StatelessWidget {
   final String condition;
 
-  WeatherIcon({required this.condition});
+  const WeatherIcon({super.key, required this.condition});
 
   @override
   Widget build(BuildContext context) {
@@ -107,9 +108,13 @@ class WeatherIcon extends StatelessWidget {
 
     return Row(
       children: [
-        Icon(weatherIcon, color: condition.toLowerCase() == 'sunny' ? Colors.orange : null),
-        SizedBox(width: 5),
-        Text(condition, style: TextStyle(color: condition.toLowerCase() == 'sunny' ? Colors.orange : null)),
+        Icon(weatherIcon,
+            color: condition.toLowerCase() == 'sunny' ? Colors.orange : null),
+        const SizedBox(width: 5),
+        Text(condition,
+            style: TextStyle(
+                color:
+                    condition.toLowerCase() == 'sunny' ? Colors.orange : null)),
       ],
     );
   }
