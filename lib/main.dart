@@ -3,11 +3,8 @@ import 'package:flutter_group6_alu/pages/signin.dart';
 import 'package:flutter_group6_alu/pages/signup.dart';
 import 'package:flutter_group6_alu/pages/welcome_screen.dart';
 
-import 'CitySearchScreen.dart';
-import 'WeatherScreen.dart';
-
 void main() {
-  runApp(const DashBoard());
+  runApp(const MainApp());
 }
 
 class MainApp extends StatefulWidget {
