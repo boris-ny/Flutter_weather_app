@@ -5,7 +5,9 @@ import 'package:flutter_group6_alu/pages/signup.dart';
 import 'package:flutter_group6_alu/pages/welcome_screen.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(
+    const MainApp(),
+  );
 }
 
 class MainApp extends StatefulWidget {

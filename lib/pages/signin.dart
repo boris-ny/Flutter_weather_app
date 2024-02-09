@@ -83,7 +83,10 @@ class SignIn extends StatelessWidget {
                 filled: true,
                 fillColor: Colors.white,
                 border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(50))),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(50),
+                  ),
+                ),
                 hintText: "Please Enter Password",
                 hintStyle: TextStyle(
                   color: Colors.black,
