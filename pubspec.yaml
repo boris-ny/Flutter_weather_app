@@ -1,15 +1,17 @@
 name: flutter_group6_alu
 description: "A new Flutter project."
-publish_to: 'none'
+publish_to: "none"
 version: 0.1.0
 
 environment:
-  sdk: '>=3.2.3 <4.0.0'
+  sdk: ">=3.2.3 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
+  google_fonts: ^6.1.0
+  cupertino_icons: ^1.0.2
 
 dev_dependencies:
   flutter_test:
@@ -19,3 +21,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
+  assets:
+    - assets/images/sky_icon.png
+    - assets/sun.png

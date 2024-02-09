@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_group6_alu/pages/signin.dart';
+import 'package:flutter_group6_alu/pages/signup.dart';
+import 'package:flutter_group6_alu/pages/welcome_screen.dart';
 
 import 'CitySearchScreen.dart';
 import 'WeatherScreen.dart';
@@ -7,66 +10,52 @@ void main() {
   runApp(const DashBoard());
 }
 
-class DashBoard extends StatefulWidget {
-  const DashBoard({super.key});
+class MainApp extends StatefulWidget {
+  const MainApp({super.key});
 
   @override
-  State<DashBoard> createState() => _DashBoardState();
+  State<MainApp> createState() => _MainAppState();
 }
 
-class _DashBoardState extends State<DashBoard> {
-  int _selectedIndex = 0;
-  bool _isDarkMode = false;
+class _MainAppState extends State<MainApp> {
+  var activeScreen = 'welcome-screen';
 
-  static final List<Widget> _widgetOptions = <Widget>[
-    const WeatherScreen(),
-    const CitySearchScreen(),
-  ];
-
-  void _onItemTapped(int index) {
+  void signupScreen() {
     setState(() {
-      _selectedIndex = index;
+      activeScreen = 'signup-screen';
     });
   }
 
-  void _toggleTheme() {
+  void signinScreen() {
     setState(() {
-      _isDarkMode = !_isDarkMode;
+      activeScreen = 'signin-screen';
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    // widget for changing screens with signupScreen Function
+    Widget screenWidget = WelcomeScreen(
+      startApp: signupScreen,
+    );
+
+    if (activeScreen == 'signup-screen') {
+      screenWidget = SignUp(
+        doSignUp: signinScreen,
+      );
+    }
+
+    if (activeScreen == 'signin-screen') {
+      screenWidget = const SignIn();
+    }
+
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Weather App',
-      theme: _isDarkMode ? ThemeData.dark() : ThemeData.light(),
+      theme: ThemeData(
+        scaffoldBackgroundColor: const Color.fromARGB(255, 23, 23, 23),
+      ),
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Weather App'),
-          actions: [
-            IconButton(
-              icon: Icon(_isDarkMode ? Icons.wb_sunny : Icons.nightlight_round),
-              onPressed: _toggleTheme,
-            ),
-          ],
-        ),
-        body: Center(
-          child: _widgetOptions.elementAt(_selectedIndex),
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              label: 'Search',
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          onTap: _onItemTapped,
+        body: Container(
+          child: screenWidget,
         ),
       ),
     );
