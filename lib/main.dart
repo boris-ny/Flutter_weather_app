@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_group6_alu/pages/dashboard/dashboard.dart';
 import 'package:flutter_group6_alu/pages/signin.dart';
 import 'package:flutter_group6_alu/pages/signup.dart';
 import 'package:flutter_group6_alu/pages/welcome_screen.dart';
@@ -29,11 +30,18 @@ class _MainAppState extends State<MainApp> {
     });
   }
 
+  void dashboardScreen() {
+    setState(() {
+      activeScreen = 'dashboard';
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // widget for changing screens with signupScreen Function
     Widget screenWidget = WelcomeScreen(
-      startApp: signupScreen,
+      startSignUp: signupScreen,
+      startSignIn: signinScreen,
     );
 
     if (activeScreen == 'signup-screen') {
@@ -43,7 +51,13 @@ class _MainAppState extends State<MainApp> {
     }
 
     if (activeScreen == 'signin-screen') {
-      screenWidget = const SignIn();
+      screenWidget = SignIn(
+        startDashboardScreen: dashboardScreen,
+      );
+    }
+
+    if (activeScreen == 'dashboard') {
+      screenWidget = const DashBoard();
     }
 
     return MaterialApp(

@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class WelcomeScreen extends StatelessWidget {
-  const WelcomeScreen({super.key, required this.startApp});
+  const WelcomeScreen({
+    super.key,
+    required this.startSignUp,
+    required this.startSignIn,
+  });
 
-  final void Function() startApp;
+  final void Function() startSignUp;
+  final void Function() startSignIn;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +43,7 @@ class WelcomeScreen extends StatelessWidget {
           height: 80,
         ),
         OutlinedButton(
-          onPressed: startApp,
+          onPressed: startSignUp,
           style: OutlinedButton.styleFrom(
             foregroundColor: Colors.black,
             backgroundColor: Colors.white,
@@ -59,7 +64,7 @@ class WelcomeScreen extends StatelessWidget {
           height: 38,
         ),
         TextButton(
-            onPressed: () {},
+            onPressed: startSignIn,
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

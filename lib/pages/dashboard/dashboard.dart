@@ -3,10 +3,6 @@ import 'package:flutter/material.dart';
 import 'CitySearchScreen.dart';
 import 'WeatherScreen.dart';
 
-void main() {
-  runApp(const DashBoard());
-}
-
 class DashBoard extends StatefulWidget {
   const DashBoard({super.key});
 
