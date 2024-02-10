@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CitySearchScreen extends StatefulWidget {
-  const CitySearchScreen({super.key});
+  const CitySearchScreen({Key? key}) : super(key: key);
   @override
   _CitySearchScreenState createState() => _CitySearchScreenState();
 }
@@ -9,23 +9,24 @@ class CitySearchScreen extends StatefulWidget {
 class _CitySearchScreenState extends State<CitySearchScreen> {
   final TextEditingController _searchController = TextEditingController();
   final List<CityWeatherItem> _cities = [
-    const CityWeatherItem(
+    CityWeatherItem(
         cityName: 'New York', weatherCondition: 'Sunny', temperature: 22),
-    const CityWeatherItem(
+    CityWeatherItem(
         cityName: 'London', weatherCondition: 'Cloudy', temperature: 18),
-    const CityWeatherItem(
+    CityWeatherItem(
         cityName: 'Paris', weatherCondition: 'Rainy', temperature: 15),
-    const CityWeatherItem(
+    CityWeatherItem(
         cityName: 'Tokyo', weatherCondition: 'Sunny', temperature: 25),
-    const CityWeatherItem(
+    CityWeatherItem(
         cityName: 'Kampala', weatherCondition: 'Sunny', temperature: 25),
-    const CityWeatherItem(
+    CityWeatherItem(
         cityName: 'Bujumbura', weatherCondition: 'Sunny', temperature: 35),
-    const CityWeatherItem(
+    CityWeatherItem(
         cityName: 'Arizona', weatherCondition: 'Sunny', temperature: 37),
   ];
 
   List<CityWeatherItem> _filteredCities = [];
+  List<CityWeatherItem> _favoriteCities = [];
 
   @override
   void initState() {
@@ -48,8 +49,37 @@ class _CitySearchScreenState extends State<CitySearchScreen> {
       body: ListView.builder(
         itemCount: _filteredCities.length,
         itemBuilder: (context, index) {
-          return _filteredCities[index];
+          return ListTile(
+            title: _filteredCities[index],
+            trailing: IconButton(
+              icon: _filteredCities[index].isFavorite
+                  ? Icon(Icons.favorite)
+                  : Icon(Icons.favorite_border),
+              onPressed: () {
+                setState(() {
+                  _filteredCities[index].isFavorite =
+                  !_filteredCities[index].isFavorite;
+                  if (_filteredCities[index].isFavorite) {
+                    _favoriteCities.add(_filteredCities[index]);
+                  } else {
+                    _favoriteCities.remove(_filteredCities[index]);
+                  }
+                });
+              },
+            ),
+          );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => FavoritesScreen(favoriteCities: _favoriteCities),
+            ),
+          );
+        },
+        child: Icon(Icons.favorite),
       ),
     );
   }
@@ -58,7 +88,7 @@ class _CitySearchScreenState extends State<CitySearchScreen> {
     setState(() {
       _filteredCities = _cities
           .where((city) =>
-              city.cityName.toLowerCase().contains(searchText.toLowerCase()))
+          city.cityName.toLowerCase().contains(searchText.toLowerCase()))
           .toList();
     });
   }
@@ -68,13 +98,15 @@ class CityWeatherItem extends StatelessWidget {
   final String cityName;
   final String weatherCondition;
   final int temperature;
+  bool isFavorite;
 
-  const CityWeatherItem({
-    super.key,
+  CityWeatherItem({
+    Key? key,
     required this.cityName,
     required this.weatherCondition,
     required this.temperature,
-  });
+    this.isFavorite = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -178,4 +210,31 @@ class CityClipper extends CustomClipper<Path> {
 
   @override
   bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
+}
+
+class FavoritesScreen extends StatelessWidget {
+  final List<CityWeatherItem> favoriteCities;
+
+  const FavoritesScreen({Key? key, required this.favoriteCities})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Favorites'),
+      ),
+      body: ListView.builder(
+        itemCount: favoriteCities.length,
+        itemBuilder: (context, index) {
+          final city = favoriteCities[index];
+          return ListTile(
+            title: Text(city.cityName),
+            subtitle: Text('${city.temperature}°C'),
+            trailing: Icon(Icons.favorite),
+          );
+        },
+      ),
+    );
+  }
 }

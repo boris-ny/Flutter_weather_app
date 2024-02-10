@@ -63,6 +63,7 @@ class _MainAppState extends State<MainApp> {
     }
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scaffoldBackgroundColor: const Color.fromARGB(255, 23, 23, 23),
       ),
