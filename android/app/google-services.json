@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "509421804931",
+    "project_id": "sky-cast-weather-app",
+    "storage_bucket": "sky-cast-weather-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:509421804931:android:cb7b29df151f80812c2ab6",
+        "android_client_info": {
+          "package_name": "com.example.flutter_group6_alu"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANQLLjz6TOIK8YHRfy3DRKb_3G9TU43LQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
