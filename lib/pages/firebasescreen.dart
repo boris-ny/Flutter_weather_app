@@ -11,21 +11,54 @@ class FirebaseScreen extends StatefulWidget {
 }
 
 class _FirebaseScreenState extends State<FirebaseScreen> {
-  void _getUsers() async {
-    WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform);
-  }
-
   final FirebaseFirestore db = FirebaseFirestore.instance;
 
-  // final CollectionReference users = db.collection('users');
+  Future<List<QueryDocumentSnapshot>> getData() async {
+    QuerySnapshot querySnapshot = await db.collection('users').get();
+    final docSnapshots = querySnapshot.docs;
+    return docSnapshots;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Users'),
+        backgroundColor: Colors.black12,
+        title: const Text(
+          'Users',
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
+      body: FutureBuilder<List<QueryDocumentSnapshot>>(
+        future: getData(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return const Center(child: Text('Error fetching data'));
+          }
+
+          if (snapshot.hasData) {
+            final documents = snapshot.data!;
+            return ListView.builder(
+              itemCount: documents.length,
+              itemBuilder: (context, index) {
+                // Access document data here
+                final docData = documents[index].data();
+                // ... use docData to build your list items
+                return Center(
+                  child: Container(
+                    padding: const EdgeInsets.all(12),
+                    child: Text(
+                      docData.toString(),
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ); // Replace with your logic
+              },
+            );
+          }
+
+          return const Center(child: CircularProgressIndicator());
+        },
       ),
     );
   }

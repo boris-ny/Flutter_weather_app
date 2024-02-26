@@ -1,10 +1,16 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_group6_alu/firebase_options.dart';
 import 'package:flutter_group6_alu/pages/dashboard/dashboard.dart';
 import 'package:flutter_group6_alu/pages/signin.dart';
 import 'package:flutter_group6_alu/pages/signup.dart';
 import 'package:flutter_group6_alu/pages/welcome_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(
     const MainApp(),
   );

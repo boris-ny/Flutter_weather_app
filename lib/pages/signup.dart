@@ -1,6 +1,6 @@
 // import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_group6_alu/components/input_widget.dart';
 import 'package:flutter_group6_alu/pages/firebasescreen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -16,7 +16,37 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   final _formKey = GlobalKey<FormState>();
 
-  void _createUser() {}
+  var _name = "";
+  var _email = "";
+  var _password = "";
+
+  Future<void> _createUser() async {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save(); // Save form fields
+
+      final FirebaseFirestore db =
+          FirebaseFirestore.instance; // Use initialized instance
+      try {
+        await db.collection('users').add({
+          'name': _name,
+          'email': _email,
+          'password': _password, // Handle password securely
+        });
+        if (!context.mounted) {
+          return;
+        }
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => const FirebaseScreen(),
+          ),
+        );
+      } catch (error) {
+        SnackBar(
+          content: Text(error.toString()),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +84,11 @@ class _SignUpState extends State<SignUp> {
             //   hintText: "Please Input Your Email",
             // ),
             TextFormField(
-              decoration: const InputDecoration(label: Text('Email')),
+              decoration: const InputDecoration(
+                label: Text('Email'),
+                fillColor: Colors.white,
+                filled: true,
+              ),
               validator: (value) {
                 if (value == null ||
                     value.isEmpty ||
@@ -64,7 +98,7 @@ class _SignUpState extends State<SignUp> {
                 }
                 return null;
               },
-              onSaved: (newValue) {},
+              onSaved: (newValue) => _email = newValue!,
             ),
             const SizedBox(
               height: 12,
@@ -74,7 +108,11 @@ class _SignUpState extends State<SignUp> {
             //   hintText: "Please Input Your User Name",
             // ),
             TextFormField(
-              decoration: const InputDecoration(label: Text('User Name')),
+              decoration: const InputDecoration(
+                label: Text('User Name'),
+                fillColor: Colors.white,
+                filled: true,
+              ),
               validator: (value) {
                 if (value == null ||
                     value.isEmpty ||
@@ -84,15 +122,15 @@ class _SignUpState extends State<SignUp> {
                 }
                 return null;
               },
-              onSaved: (newValue) {},
+              onSaved: (newValue) => _name = newValue!,
             ),
-            // const InputWidget(
-            //   labelText: "Password",
-            //   hintText: "Create Your password",
-            // ),
 
             TextFormField(
-              decoration: const InputDecoration(label: Text('Password')),
+              decoration: const InputDecoration(
+                label: Text('Password'),
+                fillColor: Colors.white,
+                filled: true,
+              ),
               validator: (value) {
                 if (value == null ||
                     value.isEmpty ||
@@ -102,7 +140,7 @@ class _SignUpState extends State<SignUp> {
                 }
                 return null;
               },
-              onSaved: (newValue) {},
+              onSaved: (newValue) => _password = newValue!,
             ),
 
             // const InputWidget(
@@ -138,14 +176,7 @@ class _SignUpState extends State<SignUp> {
               height: 12,
             ),
             OutlinedButton.icon(
-              onPressed: () {
-                _createUser();
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => const FirebaseScreen(),
-                  ),
-                );
-              },
+              onPressed: _createUser,
               icon: const Icon(Icons.account_box_rounded),
               style: OutlinedButton.styleFrom(
                 foregroundColor: Colors.white,
