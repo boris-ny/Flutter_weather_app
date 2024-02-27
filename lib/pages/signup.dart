@@ -52,7 +52,7 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black12,
+        backgroundColor: Colors.black26,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

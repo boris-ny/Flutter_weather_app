@@ -1,10 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_group6_alu/pages/firebasescreen.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class FirebaseScreen extends StatefulWidget {
-  const FirebaseScreen({Key? key});
+  const FirebaseScreen({super.key});
 
   @override
   State<FirebaseScreen> createState() => _FirebaseScreenState();
@@ -25,7 +23,7 @@ class _FirebaseScreenState extends State<FirebaseScreen> {
       // Trigger a rebuild of the widget tree
       setState(() {});
     } catch (error) {
-      print("Error deleting user: $error");
+      Text("Error deleting user: $error");
     }
   }
 
@@ -33,7 +31,7 @@ class _FirebaseScreenState extends State<FirebaseScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black12,
+        backgroundColor: Colors.black54,
         title: const Text(
           'Users',
           style: TextStyle(color: Colors.white),
@@ -61,11 +59,13 @@ class _FirebaseScreenState extends State<FirebaseScreen> {
                       children: [
                         Text(
                           docData.toString(),
-                          style: const TextStyle(color: Colors.white),
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 20),
                         ),
                         Text(
                           docId,
-                          style: const TextStyle(color: Colors.white),
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 20),
                         ),
                         ElevatedButton(
                           onPressed: () {
@@ -122,7 +122,9 @@ class _UpdateOverlayState extends State<UpdateOverlay> {
       'name': name,
       'password': password,
     });
-
+    if (!context.mounted) {
+      return;
+    }
     Navigator.of(context).pop();
   }
 
@@ -130,48 +132,48 @@ class _UpdateOverlayState extends State<UpdateOverlay> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black12,
+        backgroundColor: Colors.black54,
         title: const Text(
           'Update Document Overlay',
           style: TextStyle(color: Colors.white),
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             TextField(
               controller: emailController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Email',
                 filled: true,
                 fillColor: Colors.white,
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             TextField(
               controller: nameController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Name',
                 filled: true,
                 fillColor: Colors.white,
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             TextField(
               controller: passwordController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Password',
                 filled: true,
                 fillColor: Colors.white,
               ),
               obscureText: true,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: updateDocument,
-              child: Text('Update Document'),
+              child: const Text('Update Document'),
             ),
           ],
         ),
