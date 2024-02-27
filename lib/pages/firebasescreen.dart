@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_group6_alu/pages/firebasescreen.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class FirebaseScreen extends StatefulWidget {
-  const FirebaseScreen({super.key});
+  const FirebaseScreen({Key? key});
 
   @override
   State<FirebaseScreen> createState() => _FirebaseScreenState();
@@ -16,6 +18,17 @@ class _FirebaseScreenState extends State<FirebaseScreen> {
     final docSnapshots = querySnapshot.docs;
     return docSnapshots;
   }
+
+  void _deleteUser(String documentId) async {
+    try {
+      await db.collection('users').doc(documentId).delete();
+      // Trigger a rebuild of the widget tree
+      setState(() {});
+    } catch (error) {
+      print("Error deleting user: $error");
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -39,10 +52,9 @@ class _FirebaseScreenState extends State<FirebaseScreen> {
             return ListView.builder(
               itemCount: documents.length,
               itemBuilder: (context, index) {
-                // Access document data here
                 final docData = documents[index].data();
                 final docId = documents[index].id;
-                // ... use docData to build your list items
+
                 return Center(
                   child: Container(
                     padding: const EdgeInsets.all(12),
@@ -58,7 +70,6 @@ class _FirebaseScreenState extends State<FirebaseScreen> {
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            // Open update overlay
                             Navigator.of(context).push(MaterialPageRoute(
                               builder: (BuildContext context) =>
                                   UpdateOverlay(documentId: docId),
@@ -66,10 +77,16 @@ class _FirebaseScreenState extends State<FirebaseScreen> {
                           },
                           child: const Text('UPDATE'),
                         ),
+                        ElevatedButton(
+                          onPressed: () {
+                            _deleteUser(docId);
+                          },
+                          child: const Text('DELETE'),
+                        ),
                       ],
                     ),
                   ),
-                ); // Replace with your logic
+                );
               },
             );
           }
@@ -82,9 +99,9 @@ class _FirebaseScreenState extends State<FirebaseScreen> {
 }
 
 class UpdateOverlay extends StatefulWidget {
-  final String documentId; // Add documentId parameter
+  final String documentId;
 
-  UpdateOverlay({required this.documentId}); // Constructor
+  UpdateOverlay({required this.documentId});
 
   @override
   _UpdateOverlayState createState() => _UpdateOverlayState();
@@ -101,14 +118,12 @@ class _UpdateOverlayState extends State<UpdateOverlay> {
     String name = nameController.text;
     String password = passwordController.text;
 
-    // Update Firestore document
     await db.collection('users').doc(widget.documentId).update({
       'email': email,
       'name': name,
       'password': password,
     });
 
-    // Close overlay
     Navigator.of(context).pop();
   }
 
