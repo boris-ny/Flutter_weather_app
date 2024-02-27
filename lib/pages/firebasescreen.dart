@@ -29,7 +29,6 @@ class _FirebaseScreenState extends State<FirebaseScreen> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -131,7 +130,11 @@ class _UpdateOverlayState extends State<UpdateOverlay> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Update Document Overlay'),
+        backgroundColor: Colors.black12,
+        title: const Text(
+          'Update Document Overlay',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.all(20.0),
