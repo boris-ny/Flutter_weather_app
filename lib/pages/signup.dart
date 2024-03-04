@@ -1,11 +1,10 @@
-// import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_group6_alu/pages/firebasescreen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SignUp extends StatefulWidget {
-  const SignUp({super.key, required this.doSignUp});
+  const SignUp({Key? key, required this.doSignUp}) : super(key: key);
 
   final void Function() doSignUp;
 
@@ -16,7 +15,6 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   final _formKey = GlobalKey<FormState>();
 
-  var _name = "";
   var _email = "";
   var _password = "";
 
@@ -24,25 +22,33 @@ class _SignUpState extends State<SignUp> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save(); // Save form fields
 
-      final FirebaseFirestore db =
-          FirebaseFirestore.instance; // Use initialized instance
       try {
-        await db.collection('users').add({
-          'name': _name,
-          'email': _email,
-          'password': _password, // Handle password securely
-        });
-        if (!context.mounted) {
-          return;
-        }
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => const FirebaseScreen(),
-          ),
+        UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _email,
+          password: _password,
         );
+
+        if (userCredential.user != null) {
+          // User account created successfully, you can proceed with navigation or any other action
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const FirebaseScreen(),
+            ),
+          );
+        }
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'email-already-in-use') {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('The email address is already in use.')),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('An error occurred: ${e.message}')),
+          );
+        }
       } catch (error) {
-        SnackBar(
-          content: Text(error.toString()),
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('An error occurred: $error')),
         );
       }
     }
@@ -79,22 +85,15 @@ class _SignUpState extends State<SignUp> {
             const SizedBox(
               height: 32,
             ),
-            // const InputWidget(
-            //   labelText: "Email",
-            //   hintText: "Please Input Your Email",
-            // ),
             TextFormField(
               decoration: const InputDecoration(
-                label: Text('Email'),
+                labelText: 'Email',
                 fillColor: Colors.white,
                 filled: true,
               ),
               validator: (value) {
-                if (value == null ||
-                    value.isEmpty ||
-                    value.trim().length <= 1 ||
-                    value.trim().length >= 50) {
-                  return 'Must be between 1 and 50';
+                if (value == null || !value.contains('@')) {
+                  return 'Invalid email';
                 }
                 return null;
               },
@@ -103,77 +102,23 @@ class _SignUpState extends State<SignUp> {
             const SizedBox(
               height: 12,
             ),
-            // const InputWidget(
-            //   labelText: "User Name",
-            //   hintText: "Please Input Your User Name",
-            // ),
             TextFormField(
               decoration: const InputDecoration(
-                label: Text('User Name'),
+                labelText: 'Password',
                 fillColor: Colors.white,
                 filled: true,
               ),
               validator: (value) {
-                if (value == null ||
-                    value.isEmpty ||
-                    value.trim().length <= 1 ||
-                    value.trim().length >= 50) {
-                  return 'Must be between 1 and 50';
-                }
-                return null;
-              },
-              onSaved: (newValue) => _name = newValue!,
-            ),
-
-            TextFormField(
-              decoration: const InputDecoration(
-                label: Text('Password'),
-                fillColor: Colors.white,
-                filled: true,
-              ),
-              validator: (value) {
-                if (value == null ||
-                    value.isEmpty ||
-                    value.trim().length <= 1 ||
-                    value.trim().length >= 50) {
-                  return 'Must be between 1 and 50';
+                if (value == null || value.isEmpty) {
+                  return 'Password cannot be empty';
                 }
                 return null;
               },
               onSaved: (newValue) => _password = newValue!,
+              obscureText: true,
             ),
-
-            // const InputWidget(
-            //   labelText: "Confirm Password",
-            //   hintText: "Please confirm your password",
-            // ),
             const SizedBox(
               height: 32,
-            ),
-            OutlinedButton.icon(
-              onPressed: widget.doSignUp,
-              icon: const Icon(Icons.account_box_rounded),
-              style: OutlinedButton.styleFrom(
-                foregroundColor: Colors.white,
-                backgroundColor: const Color.fromARGB(255, 8, 49, 164),
-                side: const BorderSide(
-                  color: Color.fromARGB(255, 8, 49, 164),
-                ),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 40,
-                  vertical: 10,
-                ),
-                textStyle: const TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              label: const Text(
-                'Sign Up',
-              ),
-            ),
-            const SizedBox(
-              height: 12,
             ),
             OutlinedButton.icon(
               onPressed: _createUser,
@@ -194,7 +139,7 @@ class _SignUpState extends State<SignUp> {
                 ),
               ),
               label: const Text(
-                'Firebase Button',
+                'Sign Up',
               ),
             ),
           ],
