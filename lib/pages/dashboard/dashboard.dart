@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'CitySearchScreen.dart';
 import 'WeatherScreen.dart';
-import 'FavoritesScreen.dart'; // Import the FavoritesScreen
 
 class DashBoard extends StatefulWidget {
   const DashBoard({Key? key}) : super(key: key);
@@ -60,29 +59,29 @@ class _DashBoardState extends State<DashBoard> {
         bottomNavigationBar: BottomNavigationBar(
           items: _hasFavorites // Conditionally render navigation items
               ? <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              label: 'Search',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.favorite), // Add favorite icon
-              label: 'Favorites', // Add favorite label
-            ),
-          ]
+                  const BottomNavigationBarItem(
+                    icon: Icon(Icons.home),
+                    label: 'Home',
+                  ),
+                  const BottomNavigationBarItem(
+                    icon: Icon(Icons.search),
+                    label: 'Search',
+                  ),
+                  const BottomNavigationBarItem(
+                    icon: Icon(Icons.favorite), // Add favorite icon
+                    label: 'Favorites', // Add favorite label
+                  ),
+                ]
               : <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              label: 'Search',
-            ),
-          ],
+                  const BottomNavigationBarItem(
+                    icon: Icon(Icons.home),
+                    label: 'Home',
+                  ),
+                  const BottomNavigationBarItem(
+                    icon: Icon(Icons.search),
+                    label: 'Search',
+                  ),
+                ],
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
         ),

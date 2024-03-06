@@ -31,17 +31,20 @@ class _SignInState extends State<SignIn> {
           email: _email,
           password: _password,
         );
+        if (!mounted) {
+          return;
+        }
         if (credential.user != null) {
           widget.startDashboardScreen(); // Navigate to the dashboard screen
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Invalid email or password')),
+            const SnackBar(content: Text('Invalid email or password')),
           );
         }
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found' || e.code == 'wrong-password') {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Invalid email or password')),
+            const SnackBar(content: Text('Invalid email or password')),
           );
         } else {
           ScaffoldMessenger.of(context).showSnackBar(

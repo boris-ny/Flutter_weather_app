@@ -28,6 +28,9 @@ class _SignUpState extends State<SignUp> {
           email: _email,
           password: _password,
         );
+        if (!mounted) {
+          return;
+        }
 
         if (userCredential.user != null) {
           // User account created successfully, you can proceed with navigation or any other action
@@ -42,7 +45,8 @@ class _SignUpState extends State<SignUp> {
       } on FirebaseAuthException catch (e) {
         if (e.code == 'email-already-in-use') {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('The email address is already in use.')),
+            const SnackBar(
+                content: Text('The email address is already in use.')),
           );
         } else {
           ScaffoldMessenger.of(context).showSnackBar(

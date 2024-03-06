@@ -122,7 +122,7 @@ class _UpdateOverlayState extends State<UpdateOverlay> {
       'name': name,
       'password': password,
     });
-    if (!context.mounted) {
+    if (!mounted) {
       return;
     }
     Navigator.of(context).pop();
