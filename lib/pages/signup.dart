@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_group6_alu/pages/firebasescreen.dart';
+import 'package:flutter_group6_alu/pages/signin.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SignUp extends StatefulWidget {
@@ -23,7 +23,8 @@ class _SignUpState extends State<SignUp> {
       _formKey.currentState!.save(); // Save form fields
 
       try {
-        UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        UserCredential userCredential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: _email,
           password: _password,
         );
@@ -32,7 +33,9 @@ class _SignUpState extends State<SignUp> {
           // User account created successfully, you can proceed with navigation or any other action
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => const FirebaseScreen(),
+              builder: (context) => SignIn(
+                startDashboardScreen: () {},
+              ),
             ),
           );
         }

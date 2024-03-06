@@ -20,7 +20,7 @@ class _SignInState extends State<SignIn> {
   var _email = "";
   var _password = "";
 
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future<void> _signIn() async {
     if (_formKey.currentState!.validate()) {
