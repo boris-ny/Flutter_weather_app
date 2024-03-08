@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_group6_alu/pages/dashboard/dashboard.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({
     Key? key,
-    required this.startDashboardScreen,
   }) : super(key: key);
-
-  final void Function() startDashboardScreen;
 
   @override
   _SignInState createState() => _SignInState();
@@ -35,7 +33,11 @@ class _SignInState extends State<SignIn> {
           return;
         }
         if (credential.user != null) {
-          widget.startDashboardScreen(); // Navigate to the dashboard screen
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (ctx) => const DashBoard(),
+            ),
+          ); // Navigate to the dashboard screen
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Invalid email or password')),
@@ -61,81 +63,83 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 60),
-      child: Form(
-        key: _formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const SizedBox(height: 30),
-            const Image(
-              image: AssetImage('assets/images/sky_icon.png'),
-              width: 180,
-              height: 140,
-            ),
-            const SizedBox(height: 32),
-            Text(
-              'Sign In',
-              style: GoogleFonts.roboto(
-                fontSize: 32,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 60),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(height: 30),
+              const Image(
+                image: AssetImage('assets/images/sky_icon.png'),
+                width: 180,
+                height: 140,
               ),
-            ),
-            const SizedBox(height: 32),
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: 'Email',
-                filled: true,
-                fillColor: Colors.white,
-              ),
-              validator: (value) {
-                if (value == null || !value.contains('@')) {
-                  return 'Invalid email';
-                }
-                return null;
-              },
-              onSaved: (newValue) => _email = newValue!,
-            ),
-            const SizedBox(height: 10),
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: 'Password',
-                filled: true,
-                fillColor: Colors.white,
-              ),
-              obscureText: true,
-              validator: (value) {
-                if (value == null || value.length < 6) {
-                  return 'Password must be at least 6 characters long';
-                }
-                return null;
-              },
-              onSaved: (newValue) => _password = newValue!,
-            ),
-            const SizedBox(height: 32),
-            OutlinedButton.icon(
-              onPressed: _signIn,
-              icon: const Icon(Icons.account_circle),
-              style: OutlinedButton.styleFrom(
-                foregroundColor: Colors.white,
-                backgroundColor: const Color.fromARGB(255, 8, 49, 164),
-                side: const BorderSide(
-                  color: Color.fromARGB(255, 8, 49, 164),
-                ),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 40,
-                  vertical: 10,
-                ),
-                textStyle: const TextStyle(
-                  fontSize: 30,
+              const SizedBox(height: 32),
+              Text(
+                'Sign In',
+                style: GoogleFonts.roboto(
+                  fontSize: 32,
+                  color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              label: const Text('Sign In'),
-            ),
-          ],
+              const SizedBox(height: 32),
+              TextFormField(
+                decoration: const InputDecoration(
+                  labelText: 'Email',
+                  filled: true,
+                  fillColor: Colors.white,
+                ),
+                validator: (value) {
+                  if (value == null || !value.contains('@')) {
+                    return 'Invalid email';
+                  }
+                  return null;
+                },
+                onSaved: (newValue) => _email = newValue!,
+              ),
+              const SizedBox(height: 10),
+              TextFormField(
+                decoration: const InputDecoration(
+                  labelText: 'Password',
+                  filled: true,
+                  fillColor: Colors.white,
+                ),
+                obscureText: true,
+                validator: (value) {
+                  if (value == null || value.length < 6) {
+                    return 'Password must be at least 6 characters long';
+                  }
+                  return null;
+                },
+                onSaved: (newValue) => _password = newValue!,
+              ),
+              const SizedBox(height: 32),
+              OutlinedButton.icon(
+                onPressed: _signIn,
+                icon: const Icon(Icons.account_circle),
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: const Color.fromARGB(255, 8, 49, 164),
+                  side: const BorderSide(
+                    color: Color.fromARGB(255, 8, 49, 164),
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 40,
+                    vertical: 10,
+                  ),
+                  textStyle: const TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                label: const Text('Sign In'),
+              ),
+            ],
+          ),
         ),
       ),
     );
