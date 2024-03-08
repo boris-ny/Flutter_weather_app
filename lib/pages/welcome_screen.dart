@@ -1,15 +1,66 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_group6_alu/pages/dashboard/dashboard.dart';
+import 'package:flutter_group6_alu/pages/signin.dart';
+import 'package:flutter_group6_alu/pages/signup.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
-class WelcomeScreen extends StatelessWidget {
+class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({
     super.key,
-    required this.startSignUp,
-    required this.startSignIn,
   });
 
-  final void Function() startSignUp;
-  final void Function() startSignIn;
+  @override
+  State<WelcomeScreen> createState() => _WelcomeScreenState();
+}
+
+class _WelcomeScreenState extends State<WelcomeScreen> {
+  Future<void> _googleSignIn() async {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+      final UserCredential userCredential =
+          await auth.signInWithCredential(credential);
+      User? user = userCredential.user;
+
+      if (!mounted) {
+        return;
+      }
+
+      if (user != null) {
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (ctx) => const DashBoard(),
+        ));
+        var userName = user.displayName;
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Signed in $userName')));
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found' || e.code == 'wrong-password') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Invalid email or password')),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error signing in: ${e.message}')),
+        );
+      }
+    } catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error signing in: $error')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +94,11 @@ class WelcomeScreen extends StatelessWidget {
           height: 80,
         ),
         OutlinedButton(
-          onPressed: startSignUp,
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (ctx) => const SignUp(),
+            ));
+          },
           style: OutlinedButton.styleFrom(
             foregroundColor: Colors.black,
             backgroundColor: Colors.white,
@@ -61,10 +116,14 @@ class WelcomeScreen extends StatelessWidget {
           ),
         ),
         const SizedBox(
-          height: 38,
+          height: 25,
         ),
         TextButton(
-            onPressed: startSignIn,
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (ctx) => const SignIn(),
+              ));
+            },
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -87,7 +146,35 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                 )
               ],
-            ))
+            )),
+        const Text(
+          'or',
+          style: TextStyle(color: Colors.grey, fontSize: 25),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        ElevatedButton.icon(
+          onPressed: _googleSignIn,
+          style: OutlinedButton.styleFrom(
+            foregroundColor: Colors.black,
+            backgroundColor: Colors.white,
+            side: const BorderSide(
+              color: Colors.white,
+            ),
+            padding: const EdgeInsets.all(10),
+            textStyle: const TextStyle(
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          label: const Text(
+            'Sign in with Google',
+          ),
+          icon: Image.asset(
+            'assets/google.png',
+          ),
+        )
       ],
     );
   }
