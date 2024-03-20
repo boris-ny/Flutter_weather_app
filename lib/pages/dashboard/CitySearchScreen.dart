@@ -10,19 +10,40 @@ class _CitySearchScreenState extends State<CitySearchScreen> {
   final TextEditingController _searchController = TextEditingController();
   final List<CityWeatherItem> _cities = [
     CityWeatherItem(
-        cityName: 'New York', weatherCondition: 'Sunny', temperature: 22),
+      cityName: 'New York',
+      weatherCondition: 'Sunny',
+      temperature: 22,
+    ),
     CityWeatherItem(
-        cityName: 'London', weatherCondition: 'Cloudy', temperature: 18),
+      cityName: 'London',
+      weatherCondition: 'Cloudy',
+      temperature: 18,
+    ),
     CityWeatherItem(
-        cityName: 'Paris', weatherCondition: 'Rainy', temperature: 15),
+      cityName: 'Paris',
+      weatherCondition: 'Rainy',
+      temperature: 15,
+    ),
     CityWeatherItem(
-        cityName: 'Tokyo', weatherCondition: 'Sunny', temperature: 25),
+      cityName: 'Tokyo',
+      weatherCondition: 'Sunny',
+      temperature: 25,
+    ),
     CityWeatherItem(
-        cityName: 'Kampala', weatherCondition: 'Sunny', temperature: 25),
+      cityName: 'Kampala',
+      weatherCondition: 'Sunny',
+      temperature: 25,
+    ),
     CityWeatherItem(
-        cityName: 'Bujumbura', weatherCondition: 'Sunny', temperature: 35),
+      cityName: 'Bujumbura',
+      weatherCondition: 'Sunny',
+      temperature: 35,
+    ),
     CityWeatherItem(
-        cityName: 'Arizona', weatherCondition: 'Sunny', temperature: 37),
+      cityName: 'Arizona',
+      weatherCondition: 'Sunny',
+      temperature: 37,
+    ),
   ];
 
   List<CityWeatherItem> _filteredCities = [];
@@ -53,12 +74,12 @@ class _CitySearchScreenState extends State<CitySearchScreen> {
             title: _filteredCities[index],
             trailing: IconButton(
               icon: _filteredCities[index].isFavorite
-                  ? Icon(Icons.favorite)
-                  : Icon(Icons.favorite_border),
+                  ? const Icon(Icons.favorite)
+                  : const Icon(Icons.favorite_border),
               onPressed: () {
                 setState(() {
                   _filteredCities[index].isFavorite =
-                  !_filteredCities[index].isFavorite;
+                      !_filteredCities[index].isFavorite;
                   if (_filteredCities[index].isFavorite) {
                     _favoriteCities.add(_filteredCities[index]);
                   } else {
@@ -75,11 +96,12 @@ class _CitySearchScreenState extends State<CitySearchScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => FavoritesScreen(favoriteCities: _favoriteCities),
+              builder: (context) =>
+                  FavoritesScreen(favoriteCities: _favoriteCities),
             ),
           );
         },
-        child: Icon(Icons.favorite),
+        child: const Icon(Icons.favorite),
       ),
     );
   }
@@ -88,7 +110,7 @@ class _CitySearchScreenState extends State<CitySearchScreen> {
     setState(() {
       _filteredCities = _cities
           .where((city) =>
-          city.cityName.toLowerCase().contains(searchText.toLowerCase()))
+              city.cityName.toLowerCase().contains(searchText.toLowerCase()))
           .toList();
     });
   }
@@ -111,7 +133,10 @@ class CityWeatherItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      margin: const EdgeInsets.symmetric(
+        vertical: 8.0,
+        horizontal: 16.0,
+      ),
       child: ClipPath(
         clipper: CityClipper(),
         child: Container(
