@@ -90,6 +90,7 @@ class _SignUpState extends State<SignUp> {
                 height: 32,
               ),
               TextFormField(
+                key: const Key("email"),
                 decoration: const InputDecoration(
                   labelText: 'Email',
                   fillColor: Colors.white,
@@ -107,6 +108,7 @@ class _SignUpState extends State<SignUp> {
                 height: 12,
               ),
               TextFormField(
+                key: const Key('password'),
                 decoration: const InputDecoration(
                   labelText: 'Password',
                   fillColor: Colors.white,
