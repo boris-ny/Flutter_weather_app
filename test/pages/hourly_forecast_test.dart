@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_group6_alu/pages/dashboard/hourly_forecast.dart';
 
 void main() {
-  testWidgets('Hourly Forecast widget UI test', (WidgetTester tester) async {
+  testWidgets('Hourly Forecast widget texts test', (WidgetTester tester) async {
     // Build the widget
     await tester.pumpWidget(MaterialApp(
       home: HourlyForecast(),
@@ -13,12 +13,29 @@ void main() {
     expect(find.text('Morning'), findsOneWidget);
     expect(find.text('Noon'), findsOneWidget);
     expect(find.text('Evening'), findsOneWidget);
+  });
 
-    // Verify if the weather icons and text for different times are present
+  testWidgets('Hourly Forecast widget weather icons test',
+      (WidgetTester tester) async {
+    // Build the widget
+    await tester.pumpWidget(MaterialApp(
+      home: HourlyForecast(),
+    ));
+
+    // Verify if the weather icons for different times are present
     expect(find.byIcon(Icons.wb_sunny), findsNWidgets(2));
     expect(find.byIcon(Icons.grain), findsOneWidget);
     expect(find.byIcon(Icons.cloud), findsNWidgets(3));
+  });
 
+  testWidgets('Hourly Forecast widget time texts test',
+      (WidgetTester tester) async {
+    // Build the widget
+    await tester.pumpWidget(MaterialApp(
+      home: HourlyForecast(),
+    ));
+
+    // Verify if the time texts for different times are present
     expect(find.text('9 AM'), findsOneWidget);
     expect(find.text('10 AM'), findsOneWidget);
     expect(find.text('11 AM'), findsOneWidget);
