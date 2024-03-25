@@ -7,76 +7,87 @@ class HourlyForecast extends StatelessWidget {
     return const Column(
       children: [
         SizedBox(height: 10),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            // Morning
-            Column(
-              children: [
-                Text(
-                  'Morning',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 10),
-                Column(
+        Expanded(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              // Morning
+              Expanded(
+                child: Column(
                   children: [
-                    Text('9 AM'),
-                    WeatherIcon(condition: 'Sunny'),
+                    Expanded(
+                      child: Text(
+                        'Morning',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
                     SizedBox(height: 10),
-                    Text('10 AM'),
-                    WeatherIcon(condition: 'Cloudy'),
-                    SizedBox(height: 10),
-                    Text('11 AM'),
-                    WeatherIcon(condition: 'Rainy'),
+                    Column(
+                      children: [
+                        Expanded(child: Text('9 AM')),
+                        Expanded(child: WeatherIcon(condition: 'Sunny')),
+                        SizedBox(height: 10),
+                        Expanded(child: Text('10 AM')),
+                        Expanded(child: WeatherIcon(condition: 'Cloudy')),
+                        SizedBox(height: 10),
+                        Expanded(child: Text('11 AM')),
+                        Expanded(child: WeatherIcon(condition: 'Rainy')),
+                      ],
+                    ),
                   ],
                 ),
-              ],
-            ),
-            // Noon
-            Column(
-              children: [
-                Text(
-                  'Noon',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 10),
-                Column(
+              ),
+              // Noon
+              Expanded(
+                child: Column(
                   children: [
-                    Text('12 PM'),
-                    WeatherIcon(condition: 'Sunny'),
+                    Text(
+                      'Noon',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                     SizedBox(height: 10),
-                    Text('1 PM'),
-                    WeatherIcon(condition: 'Partly Cloudy'),
-                    SizedBox(height: 10),
-                    Text('2 PM'),
-                    WeatherIcon(condition: 'Cloudy'),
+                    Column(
+                      children: [
+                        Expanded(child: Text('12 PM')),
+                        Expanded(child: WeatherIcon(condition: 'Sunny')),
+                        SizedBox(height: 10),
+                        Expanded(child: Text('1 PM')),
+                        Expanded(
+                            child: WeatherIcon(condition: 'Partly Cloudy')),
+                        SizedBox(height: 10),
+                        Expanded(child: Text('2 PM')),
+                        Expanded(child: WeatherIcon(condition: 'Cloudy')),
+                      ],
+                    ),
                   ],
                 ),
-              ],
-            ),
-            // Evening
-            Column(
-              children: [
-                Text(
-                  'Evening',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 10),
-                Column(
+              ),
+              // Evening
+              Expanded(
+                child: Column(
                   children: [
-                    Text('3 PM'),
-                    WeatherIcon(condition: 'Cloudy'),
+                    Text(
+                      'Evening',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                     SizedBox(height: 10),
-                    Text('4 PM'),
-                    WeatherIcon(condition: 'Rainy'),
-                    SizedBox(height: 10),
-                    Text('5 PM'),
-                    WeatherIcon(condition: 'Sunny'),
+                    Column(
+                      children: [
+                        Expanded(child: Text('3 PM')),
+                        Expanded(child: WeatherIcon(condition: 'Cloudy')),
+                        SizedBox(height: 10),
+                        Expanded(child: Text('4 PM')),
+                        Expanded(child: WeatherIcon(condition: 'Rainy')),
+                        SizedBox(height: 10),
+                        Expanded(child: Text('5 PM')),
+                        Expanded(child: WeatherIcon(condition: 'Sunny')),
+                      ],
+                    ),
                   ],
                 ),
-              ],
-            ),
-          ],
+              ),
+            ],
+          ),
         ),
         SizedBox(height: 20), //
       ],
