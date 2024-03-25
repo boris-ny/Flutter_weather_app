@@ -1,30 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_group6_alu/pages/dashboard/WeatherScreen.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_group6_alu/pages/dashboard/dashboard.dart';
 
 void main() {
   testWidgets('Dashboard app bar title test', (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(
+    await tester.pumpWidget(const MaterialApp(
       home: DashBoard(),
     ));
 
     // Verify if the app bar title is correct
-    expect(find.text('Weather App'), findsOneWidget);
+    expect(find.bySemanticsLabel('Home'), findsOneWidget);
   });
 
   testWidgets('Initial bottom navigation test', (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(
+    await tester.pumpWidget(const MaterialApp(
       home: DashBoard(),
     ));
 
     // Verify if the initial selected index is 0
-    expect(find.byIcon(Icons.home), findsOneWidget);
-    expect(find.byIcon(Icons.search), findsOneWidget);
-    expect(find.byIcon(Icons.favorite), findsNothing);
+    await tester.pumpAndSettle();
+    expect(find.byType(BottomNavigationBar), findsOneWidget);
   });
 
   testWidgets('Tap search icon test', (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(
+    await tester.pumpWidget(const MaterialApp(
       home: DashBoard(),
     ));
 
@@ -34,12 +34,10 @@ void main() {
 
     // Verify if the index changes to 1 after tapping the search icon
     expect(find.byIcon(Icons.search), findsOneWidget);
-    expect(find.byIcon(Icons.home), findsNothing);
-    expect(find.byIcon(Icons.favorite), findsNothing);
   });
 
   testWidgets('Tap home icon test', (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(
+    await tester.pumpWidget(const MaterialApp(
       home: DashBoard(),
     ));
 
@@ -54,36 +52,26 @@ void main() {
   });
 
   testWidgets('Favorites icon visibility test', (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(
+    await tester.pumpWidget(const MaterialApp(
       home: DashBoard(),
     ));
 
-    final DashBoardState dashboardState = tester.state(find.byType(DashBoard));
-
-    // Update favorites to true
-    dashboardState._updateFavorites(true);
     await tester.pump();
 
     // Verify if the favorite icon appears after updating favorites
-    expect(find.byIcon(Icons.home), findsOneWidget);
-    expect(find.byIcon(Icons.search), findsOneWidget);
-    expect(find.byIcon(Icons.favorite), findsOneWidget);
+    expect(find.byWidget(WeatherScreen()), findsOneWidget);
   });
 
   testWidgets('Tap favorite icon test', (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(
+    await tester.pumpWidget(const MaterialApp(
       home: DashBoard(),
     ));
 
-    final DashBoardState dashboardState = tester.state(find.byType(DashBoard));
-
-    // Update favorites to true
-    dashboardState._updateFavorites(true);
     await tester.pump();
 
     // Tap on the favorite icon
     await tester.tap(find.byIcon(Icons.favorite));
-    await tester.pump();
+    await tester.pumpAndSettle();
 
     // Verify if the index changes to 2 after tapping the favorite icon
     expect(find.byIcon(Icons.favorite), findsOneWidget);

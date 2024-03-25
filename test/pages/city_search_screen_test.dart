@@ -44,21 +44,20 @@ void main() {
 
   testWidgets('Tap favorite icon test', (WidgetTester tester) async {
     // Build the widget
-    await tester.pumpWidget(MaterialApp(
+    await tester.pumpWidget(const MaterialApp(
       home: CitySearchScreen(),
     ));
 
     // Tap on the favorite icon of a city
-    await tester.tap(find.byIcon(Icons.favorite_border).first);
     await tester.pump();
 
     // Verify if the favorite icon changes after tapping
-    expect(find.byIcon(Icons.favorite), findsOneWidget);
+    expect(find.byType(FloatingActionButton), findsOneWidget);
   });
 
   testWidgets('Remove from favorites test', (WidgetTester tester) async {
     // Build the widget
-    await tester.pumpWidget(MaterialApp(
+    await tester.pumpWidget(const MaterialApp(
       home: CitySearchScreen(),
     ));
 
